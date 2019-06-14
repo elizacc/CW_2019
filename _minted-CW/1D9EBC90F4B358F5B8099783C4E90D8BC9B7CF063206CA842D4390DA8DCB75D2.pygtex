@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{mindists} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.01}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{,} \PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{l+m+mf}{0.6}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{]}
+	\PYG{n}{neighs} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{7}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{9}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{50}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{]}
+	\PYG{n}{embeddings} \PYG{o}{=} \PYG{p}{[]}
+	
+	\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{mindists}\PYG{p}{)):}
+		\PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{neighs}\PYG{p}{)):}
+			\PYG{n}{embedding} \PYG{o}{=} \PYG{n}{umap}\PYG{o}{.}\PYG{n}{UMAP}\PYG{p}{(}\PYG{n}{min\PYGZus{}dist}\PYG{o}{=}\PYG{n}{mindists}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],}
+					      \PYG{n}{n\PYGZus{}neighbors}\PYG{o}{=}\PYG{n}{neighs}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],}
+					      \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+			\PYG{n}{embeddings}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{embedding}\PYG{p}{)}
+\end{Verbatim}

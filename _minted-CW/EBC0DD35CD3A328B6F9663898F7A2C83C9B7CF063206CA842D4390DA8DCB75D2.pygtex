@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{scaler} \PYG{o}{=} \PYG{n}{StandardScaler}\PYG{p}{()}
+	\PYG{n}{data} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{T}\PYG{p}{))}\PYG{o}{.}\PYG{n}{T}
+\end{Verbatim}
