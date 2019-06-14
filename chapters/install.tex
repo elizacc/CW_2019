@@ -1,0 +1,24 @@
+Библиотека UMAP требует установки, так как её нет в в стандартном наборе библиотек.
+
+Внутри UMAP также используются библиотеки: \verb|numpy, scipy, scikit-learn, numba| --- они являются обязательными требованиями для успешной установки UMAP. Если вы не уверены, есть ли у вас перечисленные библиотеки, или знаете, что их нет, это не проблема --- при установке они будут добавлены автоматически.
+
+Поставить себе библиотеку UMAP можно следующими способами \cite{umap}:
+\begin{itemize}
+	\item с помощью \verb|conda: conda install -c conda-forge umap-learn|
+	\item с помощью \verb|pip: pip install umap-learn|
+	\item ручная установка:
+	\begin{enumerate}
+		\item Загрузка пакета:\\
+		\verb|textwget https://github.com/lmcinnes/umap/archive/master.zip| \\
+		\verb|unzip master.zip| \\
+		\verb|rm master.zip| \\
+		\verb|cd umap-master|
+		\item Установка необходимых библиотек:
+		\verb|sudo pip install -r requirements.txt|
+		\item Установка UMAP:
+		\verb|python setup.py install|
+	\end{enumerate}
+\end{itemize} 
+
+
+

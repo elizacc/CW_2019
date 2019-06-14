@@ -1,0 +1,108 @@
+\graphicspath{{main/}}
+Как и в примере про временные ряды, нашими объектами изучения являются временные ряды. Подборка рядов по криптовалюте содержит 669 дней (1 января 2017 года --- 31 октября 2018 года), то есть 669 признаков.
+
+Нам предстоит снизить размерность 669-мерного пространства. Применим UMAP:
+
+1. Импортируем необходимые библиотеки:
+
+\begin{minted}{Python}
+	import numpy as np # работа с матрицами
+	import pandas as pd # работа с наборами данных
+	import matplotlib.pyplot as plt # построение графиков
+	import umap # алгоритм UMAP
+	from sklearn.preprocessing import StandardScaler # стандартизация данных
+\end{minted}
+
+2. Загрузим наш набор данных:
+\begin{minted}{Python}
+	data = pd.read_csv("data.csv")
+\end{minted}
+
+3. Стандартизируем выборку, чтобы можно было сравнивать ряды между собой. Используем \verb|StandardScaler| из \verb|sklearn.preprocessing|, о котором мы говорили в примере про временные ряды:
+\begin{minted}{Python}
+	scaler = StandardScaler()
+	data = pd.DataFrame(scaler.fit_transform(data.T)).T
+\end{minted}
+
+4. Перед тем как запускать UMAP, подберем гиперпараметры:
+\begin{itemize}
+	\item \verb|metric="euclidean"| --- аналогично предыдущим примерам, возьмем евклидову метрику, которая подходит для вещественных признаков. Стоит по умолчанию
+	\item \verb|n_components=2| --- посмотрим на 2-мерное пространство, чтобы нагляднее увидеть, присутствуют ли кластеры в данных. Стоит по умолчанию
+	\item \verb|min_dist| --- вновь возьмем несколько значений: $\{0.01, 0.1, 0.3, 0.6, 1.0\}$
+	\item \verb|n_neighbors| --- рассмотрим больше разных вариантов: $\{2, 3, 4, 5, 6, 7, 8, 9, 10, 50, 100\}$, чтобы посмотреть, что проиходит при разных значениях гиперпараметра
+\end{itemize}
+
+5. Запустим UMAP для выбранных наборов гиперпараметров. Также зафиксируем $\;$ \verb|random_state|, чтобы сравнивать результаты между собой:
+\begin{minted}{Python}
+	mindists = [0.01, 0.1, 0.3, 0.6, 1.0]
+	neighs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 50, 100]
+	embeddings = []
+	
+	for i in range(len(mindists)):
+		for j in range(len(neighs)):
+			embedding = umap.UMAP(min_dist=mindists[i],
+					      n_neighbors=neighs[j],
+					      random_state=1).fit_transform(data)
+			embeddings.append(embedding)
+\end{minted}
+
+6. Визуализируем результаты:
+
+\begin{tabular}{c|c|c|c|c}
+\arrayrulecolor[rgb]{0.8,0.85,1}
+	& \verb|n_neighbors=2| & \verb|n_neighbors=3| & \verb|n_neighbors=4| & \verb|n_neighbors=5|\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.01| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=2.png} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=3.png} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=4.png} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=5.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.1| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=2.png} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=3.png} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=4.png} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=5.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.3| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=2.png} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=3.png} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=4.png} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=5.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.6| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,6,n=2.png} & \includegraphics*[width = 0.2\textwidth]{min=0,6,n=3.png} & \includegraphics*[width = 0.2\textwidth]{min=0,6,n=4.png}
+	& \includegraphics*[width = 0.2\textwidth]{min=0,6,n=5.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=1.0| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=2.png} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=3.png} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=4.png} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=5.png}\\
+\end{tabular}\\[2mm]
+
+При \verb|n_neighbors=2| и \verb|min_dist=0.01| четко видно деление на кластера. С увеличением минимального расстояния между точками кластера все больше размываются, пока почти не сливаются при \verb|min_dist=1.0|.
+
+При \verb|n_neighbors=3| и \verb|min_dist=0.01| заметны кластера, но далее с увеличением \verb|min_dist| они постепенно объединяются.
+
+Далее, начиная с \verb|n_neighbors=4|, при маленьких значениях \verb|min_dist| еще видна локальная структура, но кластера едва заметны --- четко выделяется небольшая группа временных рядов, но в остальном кластера слились воедино. При больших значениях \verb|min_dist| остается только глобальная структура.
+\newpage
+Рассмотрим оставшиеся варианты \verb|n_neighbors|: $\{6, 7, 8, 9, 10, 50, 100\}$
+
+\begin{tabular}{c|c|c|c|c}
+\arrayrulecolor[rgb]{0.8,0.85,1}
+	& \verb|n_neighbors=6| & \verb|n_neighbors=7| & \verb|n_neighbors=8| & \verb|n_neighbors=9|\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.01| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=6.png} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=7.png} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=8.png} & \includegraphics*[width = 0.2\textwidth]{min=0,01,n=9.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.1| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=6.png} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=7.png} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=8.png} & \includegraphics*[width = 0.2\textwidth]{min=0,1,n=9.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.3| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=6.png} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=7.png} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=8.png} & \includegraphics*[width = 0.2\textwidth]{min=0,3,n=9.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.6| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=0,6,n=6.png} & \includegraphics*[width = 0.2\textwidth]{min=0,6,n=7.png} & \includegraphics*[width = 0.2\textwidth]{min=0,6,n=8.png}
+	& \includegraphics*[width = 0.2\textwidth]{min=0,6,n=9.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=1.0| \end{sideways} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=6.png} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=7.png} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=8.png} & \includegraphics*[width = 0.2\textwidth]{min=1,0,n=9.png}\\
+\end{tabular}\\[2mm]
+
+Аналогично, для данных значений гиперпараметров уже почти не заметны кластера. Таким образом, с увеличением количества соседей UMAP снижает порог похожести рядов и добавляет в один кластер все менее и менее похожие друг на друга.
+
+\begin{tabular}{c|c|c|c}
+\arrayrulecolor[rgb]{0.8,0.85,1}
+	& \verb|n_neighbors=10| & \verb|n_neighbors=50| & \verb|n_neighbors=100|\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.01| \end{sideways} & \includegraphics*[width = 0.27\textwidth]{min=0,01,n=10.png} & \includegraphics*[width = 0.27\textwidth]{min=0,01,n=50.png} & \includegraphics*[width = 0.27\textwidth]{min=0,01,n=100.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.1| \end{sideways} & \includegraphics*[width = 0.27\textwidth]{min=0,1,n=10.png} & \includegraphics*[width = 0.27\textwidth]{min=0,1,n=50.png} & \includegraphics*[width = 0.27\textwidth]{min=0,1,n=100.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.3| \end{sideways} & \includegraphics*[width = 0.27\textwidth]{min=0,3,n=10.png} & \includegraphics*[width = 0.27\textwidth]{min=0,3,n=50.png} & \includegraphics*[width = 0.27\textwidth]{min=0,3,n=100.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=0.6| \end{sideways} & \includegraphics*[width = 0.27\textwidth]{min=0,6,n=10.png} & \includegraphics*[width = 0.27\textwidth]{min=0,6,n=50.png} & \includegraphics*[width = 0.27\textwidth]{min=0,6,n=100.png}\\
+	\hline
+	\begin{sideways} \verb|min_dist=1.0| \end{sideways} & \includegraphics*[width = 0.27\textwidth]{min=1,0,n=10.png} & \includegraphics*[width = 0.27\textwidth]{min=1,0,n=50.png} & \includegraphics*[width = 0.27\textwidth]{min=1,0,n=100.png}\\
+\end{tabular}\\[2mm]
+
+В итоге, при больших значениях \verb|n_neighbors| получается один кластер, содержащий в себе все ряды, так как UMAP объединяет их в единую структуру через общих соседей.

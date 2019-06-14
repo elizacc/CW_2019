@@ -1,0 +1,162 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{cmap} % поиск в PDF
+\usepackage[english, russian]{babel} % локализация и переносы
+\parskip=3pt % дополнительное расстояние между абзацами
+\usepackage{graphicx} % вставка рисунков
+\usepackage{lastpage}
+\usepackage{rotating}
+\usepackage{minted} % красивый код
+\usepackage{verbatim}
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{caption}
+\usepackage{amsfonts, amssymb, amsthm, mathtools, amsmath} % AMS
+\usepackage{array} % Дополнительная работа с таблицами
+\usepackage{multicol}
+
+%%% Цветной текст
+
+\usepackage[usenames]{color}
+\usepackage{colortbl}
+
+%% Поля
+
+\usepackage{geometry} 
+\geometry{left=2cm}
+\geometry{right=2cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm}
+
+%%% Гиперссылки
+
+\usepackage[unicode]{hyperref}
+\usepackage{xcolor}
+\definecolor{urlcolor}{HTML}{4682B4} % цвет гиперссылок
+\definecolor{linkcolor}{HTML}{4682B4} % цвет ссылок
+\definecolor{citecolor}{HTML}{4682B4} % цвет библиоссылок
+\hypersetup{pdfstartview=FitH,  linkcolor=linkcolor,urlcolor=urlcolor, citecolor=citecolor, colorlinks=true}
+
+%% Немного дизайна
+
+\definecolor{lb}{rgb}{0.8,0.85,1}
+\renewcommand{\labelitemi}{$\diamond$}
+
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+	\textbf{ПРАВИТЕЛЬСТВО РОССИЙСКОЙ ФЕДЕРАЦИИ}\\
+	\vspace{3ex}
+	\textbf{Федеральное государственное автономное\\ образовательное учреждение высшего образования}
+	
+	\vspace{3ex}
+	
+	\textbf{Национальный исследовательский университет \\ <<Высшая школа экономики>>}
+	
+	\vspace{10ex}
+	\begin{flushright}
+		Факультет экономических наук\\
+		Образовательная программа <<Экономика>>
+	\end{flushright}
+\end{center}
+\vspace{12ex}
+
+\begin{center}
+	{\textbf{КУРСОВАЯ РАБОТА
+	}}
+	\vspace{1ex}
+	
+	<<Использование методов, основанных на кросс-энтропии, для снижения размерности временных рядов>>
+\end{center}
+\vspace{4ex}
+\begin{flushright}
+	\noindent
+	Студентка группы БЭК171\\Махнева Елизавета Александровна\\
+	\vspace{13ex}
+	Научный руководитель:\\
+	Демешев Борис Борисович
+	
+\end{flushright}	
+
+\vfill
+
+\begin{center}
+	Москва 2019
+	
+\end{center}
+\newpage
+	\tableofcontents
+	\newpage
+	
+	\section{Введение}
+	\input{./chapters/begin.tex}
+	\newpage
+	
+	\section{Кросс-энтропия и ее применение}
+	\subsection{Энтропия}
+	\input{./chapters/Entropy.tex}	
+	\subsection{Кросс-энтропия}
+	\input{./chapters/Cross-entropy.tex}
+	\subsection{Применение кросс-энтропии}
+	\input{./chapters/fuzzy.tex}
+	\newpage
+	
+	\section{Алгоритм UMAP}
+	\subsection{Что такое UMAP?}
+	\input{./chapters/umap.tex}
+	\subsection{Гиперпараметры UMAP}
+	\input{./chapters/hyper.tex}
+	\subsection{Применение UMAP}
+	\input{./chapters/app_umap.tex}
+	\newpage
+
+	\section{Принцип работы UMAP}
+	\input{./chapters/princip.tex}
+	\subsection{Построение графа}
+	\input{./chapters/graph.tex}
+	\subsection{Снижение размерности и кросс-энтропия}
+	\input{./chapters/reduce.tex}
+	\newpage
+	
+	\section{Примеры}
+	\subsection{Для малой выборки}
+	\input{./chapters/small.tex}
+	\subsection{Для временных рядов}
+	\input{./chapters/time.tex}
+	\newpage
+	
+	\section{Реализация UMAP}
+	\subsection{Выбор данных}
+	\input{./chapters/data.tex}
+	\subsection{Установка библиотеки}
+	\input{./chapters/install.tex}
+	\subsection{Понижение размерности и визуализация}
+	\input{./chapters/main.tex}
+	\newpage
+	
+	\section{Анализ результатов}
+	\input{./chapters/analysis.tex}
+	\newpage
+	
+	\section{Заключение}
+	\input{./chapters/theend.tex}
+	\newpage
+	
+	\begin{thebibliography}{99}
+		\bibitem{reducebasics}
+		\href{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.98.1478&rep=rep1&type=pdf}{Dimension Reduction | P'adraig Cunningham | Technical Report UCD-CSI-2007-7 | 2007 | 1-2 pages}
+		\bibitem{entropy}
+		\href{http://colah.github.io/posts/2015-09-Visual-Information/}{Visual Information Theory| Christopher Olah | 2015 }
+		\bibitem{mcinnes}
+		\href{https://arxiv.org/pdf/1802.03426.pdf}{UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction | Leland McInnes, John Healy, James Melville | 2018 | 13, 17, 26-34 pages}
+		\bibitem{hansen}
+		\href{https://umap-learn.readthedocs.io/en/latest/api.html}{UMAP | Jakob Hansen | 2018}
+		\bibitem{umap}
+		\href{https://umap-learn.readthedocs.io/en/latest/how_umap_works.html}{https://umap-learn.readthedocs.io/en/latest/ | UMAP-learn | Main \& How UMAP Works \& Basic UMAP Parameters}
+		\bibitem{data}
+		\href{https://www.kaggle.com/census/advance-retail-sales-time-series-collection}{Kaggle: Advance Retail Sales Time Series Collection}
+		\bibitem{maindata}
+		\href{https://www.kaggle.com/jessevent/all-crypto-currencies}{Kaggle: Every Cryptocurrency Daily Market Price}
+	\end{thebibliography}
+\end{document}
