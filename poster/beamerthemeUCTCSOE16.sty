@@ -66,8 +66,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{block begin}{
   \vskip1ex
-  \begin{beamercolorbox}[leftskip=0.5cm,colsep*=.75ex]{block title}%
-    \usebeamerfont*{block title}\insertblocktitle
+  \begin{beamercolorbox}[colsep*=.75ex]{block title}\usebeamerfont*{block title}\insertblocktitle
   \end{beamercolorbox}%
   {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
   \usebeamerfont{block body}%
@@ -94,9 +93,9 @@
       \begin{column}{.65\paperwidth}
         \vskip5ex
         \begin{center}
-          \usebeamercolor{title in headline}{\color{fg}\textbf{\Huge{\inserttitle}}\\[3ex]}
-          \usebeamercolor{author in headline}{\usebeamerfont*{another title}\insertauthor \\[2ex]}
-          \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}     
+          \usebeamercolor{title in headline}{\color{fg}\textbf{\Huge{\inserttitle}}\\[5ex]}
+          \usebeamercolor{author in headline}{\textcolor{mine}{\usebeamerfont*{another title}\insertauthor} \\[6ex]}
+          \usebeamercolor{institute in headline}{\color{another}\large{\insertinstitute}\\[1ex]}     
         \end{center}
       \end{column}
 
