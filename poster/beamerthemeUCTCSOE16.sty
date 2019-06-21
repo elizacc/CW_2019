@@ -1,0 +1,169 @@
+\ProvidesPackage{beamerthemeUCTCSOE16} % this style was created by David Vilar
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{tangocolors}
+\selectcolormodel{cmyk}
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% custom colors
+\definecolor{i6blue}{cmyk}{1,0.305,0,0.06}
+\definecolor{i6bluedark}{rgb}{0.0156,0.2578,0.5625} 
+\definecolor{i6colorscheme1}{HTML}{000000}  % e.g. for block title
+\definecolor{i6colorblockbg}{HTML}{FFFFFF}
+\definecolor{i6colorblockfg}{HTML}{000000}
+\definecolor{i6colorscheme2}{HTML}{000000}  % e.g. title in headline
+\definecolor{i6colorscheme3}{HTML}{FFFFFF}  % e.g. for poster background
+\definecolor{i6colorscheme4}{HTML}{000000} 
+\definecolor{i6colorschemeHeadline}{HTML}{FFFFFF}  % for headline bg
+          % for headline bg
+\definecolor{i6colorschemeFootline}{HTML}{100D09}  % for headline bg
+
+% FSOC colours
+\definecolor{fsocschemeheaderfont}{HTML}{0096FF} 
+\definecolor{fsocschemeheaderfont}{HTML}{000000}
+
+% Me
+\definecolor{mine}{HTML}{4A1079}
+\definecolor{my}{HTML}{F66C5C}
+\definecolor{another}{HTML}{172978}
+
+% UCTCSEO16 colours
+\definecolor{infocolorblue}{rgb}{0.584314, 0.792157, 0.996078}
+\definecolor{infocolorgray}{gray}{0.95}
+
+% headline colors and fonts
+\setbeamercolor{headline}{fg=fsocschemeheaderfont,bg=i6colorschemeHeadline}
+\setbeamercolor{title in headline}{fg=fsocschemeheaderfont}
+\setbeamercolor{author in headline}{fg=fsocschemeheaderfont}
+\setbeamercolor{logo in headline}{fg=black,bg=lightgray}
+\setbeamercolor{separation line}{bg=i6colorscheme1}
+
+% footline colors and fonts
+\setbeamercolor{footline}{fg=fsocschemeheaderfont,bg=i6colorschemeHeadline}
+\setbeamerfont{footline}{size=\large,series=\bfseries}
+
+% body colors and fonts
+\setbeamercolor*{normal text}{fg=black,bg=i6colorscheme3}
+
+% block environment
+\setbeamercolor*{block body}{bg=white,fg=black}
+\setbeamercolor*{block title}{fg=another,bg=i6colorblockbg}
+\setbeamerfont*{block title}{size=\large,series=\bfseries}
+\setbeamerfont*{block body}{size=\normalsize}
+\setbeamerfont*{another title}{size=\Large, series=\bfseries}
+
+% example environment
+\setbeamercolor*{example title}{fg=white,bg=i6colorscheme1}
+
+
+\setbeamercolor{alerted text}{fg=i6colorscheme1}
+
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+  \vskip1ex
+  \begin{beamercolorbox}[leftskip=0.5cm,colsep*=.75ex]{block title}%
+    \usebeamerfont*{block title}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[colsep*=.75ex,sep=.75ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+  }
+  \setbeamertemplate{block end}{
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{  
+  \leavevmode
+
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+    \begin{columns}[T]
+      \begin{column}{.1\paperwidth}
+        \vskip4.5ex
+        \begin{center}
+          \includegraphics[width=.80\linewidth]{figures/fox}
+        \end{center}
+      \end{column}
+
+      \begin{column}{.65\paperwidth}
+        \vskip5ex
+        \begin{center}
+          \usebeamercolor{title in headline}{\color{fg}\textbf{\Huge{\inserttitle}}\\[3ex]}
+          \usebeamercolor{author in headline}{\usebeamerfont*{another title}\insertauthor \\[2ex]}
+          \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}     
+        \end{center}
+      \end{column}
+
+      \begin{column}{.1\paperwidth}
+        \vskip5ex
+        \begin{center}
+          \includegraphics[width=.85\linewidth]{figures/qr-code}
+        \end{center}
+      \end{column}
+      
+    \end{columns}
+    \vskip2ex
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
+    \rule{0pt}{3pt}
+  \end{beamercolorbox}
+  
+  \leavevmode%
+  \begin{beamercolorbox}[ht=-1.75ex,leftskip=1em,rightskip=1em]{footline}%
+       \begin{columns}[T]
+      \begin{column}{.18\paperwidth}
+      \end{column}
+      \begin{column}{.70\paperwidth}
+        \begin{center}
+          \vspace{15mm}
+        \end{center}
+      \end{column}
+      \begin{column}{.14\paperwidth}
+      \end{column}
+    \end{columns}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>
+
+\setbeamertemplate{itemize item}{\normalsize {--}}
+\newcommand{\infoitem}[1]{\setbeamercolor*{itemize item}{fg=ta2orange}\item #1} 
+\newcommand{\normalitem}[1]{\setbeamercolor*{itemize item}{fg=black}\item #1} 
+\setbeamercolor*{itemize item}{fg=fsocschemeheaderfont}
+\setbeamertemplate{itemize subitem}{\color{fsocschemeheaderfont}{\normalsize$\square$}}
+\setbeamertemplate{itemize subsubitem}{\color{fsocschemeheaderfont}{\normalsize $\circ$}}
+
+% setting enumerate labels
+\setbeamertemplate{enumerate item}{(\alph{enumi})}
+\setbeamertemplate{enumerate subitem}{(\roman{enumii})}
+
+% equal font sizes for all levels
+\setbeamerfont{itemize/enumerate body}{size=\large}
+\setbeamerfont{itemize/enumerate subbody}{size=\large}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\large}
+
+%bibliographic entries
+\setbeamertemplate{bibliography item}[text] % number references using ACM-like style
+\setbeamercolor*{bibliography entry author}{fg=black} % change author entries to black
+\setbeamercolor*{bibliography item}{fg=black}
+\setbeamerfont{bibliography/item}{size=\small}
+
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{\large.\,}
+\setbeamercolor{caption name}{fg=fsocschemeheaderfont}
+\setbeamerfont{caption}{size=\normalsize}
