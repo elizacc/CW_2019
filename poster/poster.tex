@@ -143,10 +143,10 @@
 	                \sum_{i=1}^n \left(p(x_i)\log \frac{p(x_i)}{\tilde p(x_i)} + (1 - p(x_i))\log \frac{1 - p(x_i)}{1 - \tilde p(x_i)}\right)
                 \end{equation*}
 
-                \justifying Минимизация $C_S(\tilde S)$ по $\tilde p(x)$ позволяет найти множество $\tilde S$, которое наиболее похоже на множество $S$.
+                \justifying Минимизация $C_S(\tilde S)$ по $\tilde p(x)$ позволяет найти множество $\tilde S$, которое наиболее похоже на множество $S$. Данная задача сводится к минимизации кросс-энтропии, так как энтропия не зависит от $\tilde p(x)$.
 
 		    \end{block}
-		    \vskip2.5ex
+		    \vskip-0.85ex
 		    \noindent\rule{\textwidth}{1pt}
 		    \vskip0.5ex
 		    \begin{block}{Реализация UMAP}
