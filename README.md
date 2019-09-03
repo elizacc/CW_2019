@@ -9,6 +9,6 @@
 * [Анализ временных рядов](https://github.com/elizacc/CourseWork/blob/master/data%20%26%20code/Cryptocurrency.ipynb)
 
 ***
-Прочитать про алгоритм теперь можно еще и в [Википедии](https://ru.wikipedia.org/wiki/UMAP)
+Прочитать про алгоритм теперь можно еще и в [Википедии](https://ru.wikipedia.org/wiki/UMAP).
 
 По всем вопросам можно обращаться сюда: elizavetamakhneva@mail.ru
